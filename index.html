@@ -1,1 +1,84 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blink Performance Monitor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10131c;color:#f5f6fa;font-family:Arial,sans-serif;padding:20px}
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+h1{font-size:24px}
+small{color:#9ca3af}
+.status{color:#4ade80}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px;margin:25px 0}
+.card,.panel{background:#1c2230;padding:18px;border-radius:12px}
+.card h3{font-size:13px;color:#9ca3af}
+.value{font-size:26px;font-weight:bold}
+.panel{margin:16px 0;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:450px}
+th,td{text-align:left;padding:13px;border-bottom:1px solid #343b4c;font-size:13px}
+th{color:#9ca3af}
+.good{color:#4ade80}
+.demo{color:#fbbf24}
+</style>
+</head>
+<body>
+<header>
+<div>
+<h1>⚡ Blink Monitor</h1>
+<small>Android Application Performance Dashboard</small>
+</div>
+<div class="status">● Dashboard Ready</div>
+</header>
+
+<div class="grid">
+<div class="card"><h3>Total Events</h3><div class="value" id="events">6</div></div>
+<div class="card"><h3>Average Speed</h3><div class="value" id="average">365 ms</div></div>
+<div class="card"><h3>Successful</h3><div class="value">100%</div></div>
+<div class="card"><h3>Failed Events</h3><div class="value">0</div></div>
+</div>
+
+<div class="panel">
+<h3>Performance Overview</h3>
+<canvas id="chart"></canvas>
+</div>
+
+<div class="panel">
+<h3>Function Execution Details</h3>
+<table>
+<thead><tr><th>Function</th><th>Duration</th><th>Status</th></tr></thead>
+<tbody id="logs">
+<tr><td>App Startup</td><td>850 ms</td><td class="good">Success</td></tr>
+<tr><td>Home Screen</td><td>120 ms</td><td class="good">Success</td></tr>
+<tr><td>Open Chat</td><td>240 ms</td><td class="good">Success</td></tr>
+<tr><td>Send Message</td><td>430 ms</td><td class="good">Success</td></tr>
+<tr><td>Image Upload</td><td>2400 ms</td><td class="good">Success</td></tr>
+<tr><td>Open Profile</td><td>180 ms</td><td class="good">Success</td></tr>
+</tbody>
+</table>
+<small class="demo">Demo data only — not connected to Blink yet.</small>
+</div>
+
+<script>
+new Chart(document.getElementById('chart'),{
+type:'line',
+data:{
+labels:['Startup','Home','Chat','Message','Upload','Profile'],
+datasets:[{
+label:'Duration (ms)',
+data:[850,120,240,430,2400,180],
+borderColor:'#60a5fa',
+backgroundColor:'rgba(96,165,250,.15)',
+fill:true,
+tension:.35
+}]
+},
+options:{responsive:true,scales:{y:{beginAtZero:true}}}
+});
+</script>
+</body>
+</html>
+
